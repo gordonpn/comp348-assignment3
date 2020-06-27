@@ -1,0 +1,20 @@
+(defun right-child (lst)
+  (cond ((null lst) '())
+        (t (car (cdr (cdr lst)))))) 
+
+(defun left-child (lst)
+  (cond ((null lst) '())
+        (t (car (cdr lst))))) 
+
+(defun is-binary-search-tree (lst)
+  (cond ((null lst) t)
+        ((and (null (right-child lst)) (null (left-child lst))) t)
+        ((null (right-child lst)) (is-binary-search-tree (left-child lst)))
+        ((null (left-child lst)) (is-binary-search-tree (right-child lst)))
+        ((< (car lst) (car (left-child lst))) nil)
+        ((> (car lst) (car (right-child lst))) nil)
+        (t (and (is-binary-search-tree (right-child lst)) (is-binary-search-tree (left-child lst)))))) 
+
+;; (is-binary-search-tree '(8 (3 (1 () ()) (6 (4 () ())(7 () ()))) (10 () (14 (13) ()))))
+(is-binary-search-tree '(70 (30 (25 () ())(35 () ()))(60 (50 () ())())))
+;; (is-binary-search-tree '(40 (30 (25 () ())(35 () ()))(60 (50 () ())())))

@@ -1,0 +1,20 @@
+(defun flatten (lst)
+  (cond ((null lst) nil)
+        ((atom lst) (list lst))
+        (t (let ((lst2 (loop for x in lst appending (flatten x))))
+           (let* ((lst3 (remove-duplicates lst2 :from-end t)))
+                 (keep-number lst3)))
+          )
+  )
+)
+
+(defun keep-number (lst)
+  (cond 
+    ((null lst) '())
+    ((not (numberp (car lst))) (keep-number (cdr lst)))
+    (t (cons (car lst) (keep-number (cdr lst))))
+  )
+)
+
+(flatten '(1 2 (3 1) (a 2.5) (2 4.5) ((1 2))))
+;; (flatten '(5 4 (3 2) a b c 5 4))

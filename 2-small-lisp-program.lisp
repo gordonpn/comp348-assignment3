@@ -1,0 +1,25 @@
+(defun take-n (lst n)
+  (cond ((< n 1) nil)
+        ((> n (list-length lst)) lst)
+        ((null lst) '())
+        ((> n 0) (cons (car lst) (take-n (cdr lst) (- n 1)) )))) 
+
+(defun build-list (n)
+  (cond ((= n 1) '(1))
+        ((evenp n) (build-list (- n 1)))
+        ((oddp n) (cons n (build-list (- n 1))))))
+
+(defun triangle (n)
+  (cond ((stringp n) (princ "that's a string"))
+        ((floatp n) (princ "that's a float"))
+        ((evenp n) (princ "number entered is even"))
+        (t (print-triangle (reverse (build-list n)))))) 
+ 
+(defun print-triangle (lst)
+  (dotimes (n (+ (list-length lst) 1) (values))
+    (format t "~{~a~^ ~}~%" (take-n lst n)))) 
+
+(triangle 9)
+;; (triangle 8)
+;; (triangle "string")
+;; (triangle 2.5)
